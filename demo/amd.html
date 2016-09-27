@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Demo</title>
+        <style type="text/css">
+            .section {
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="section">
+            <input id="key" type="text" placeholder="API Key"/>
+            <input id="secret" type="text" placeholder="Secret"/>
+            <button id="constructClientButton">Construct client</button>
+        </div>
+
+        <div class="section">
+            <button id="generateTokenButton" disabled>Generate token</button>
+            <span id="currentToken"></span>
+        </div>
+
+        <div class="section">
+            <button id="authorizeButton" disabled>Authorize</button>
+        </div>
+
+        <div class="section">
+            <button id="getSessionButton" disabled>Get session</button>
+            <span id="currentSession"></span>
+        </div>
+
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/requirejs/require.js"></script>
+
+        <script>
+            require.config({
+                baseUrl: '../',
+                paths: {
+                    'crypto-js': 'bower_components/crypto-js/',
+                    'lodash-amd': 'bower_components/lodash-amd/modern',
+                    'querystring': 'bower_components/querystring/querystring',
+                    'whatwg-fetch': 'bower_components/fetch/fetch',
+                },
+                shim: {
+                    'whatwg-fetch': {
+                        exports: 'fetch'
+                    }
+                },
+                waitSeconds: 15
+            });
+
+            require(['dist/bower/lastfm.min'], function(lastfm){
+                var client;
+
+                var currentToken = null;
+                var currentSession = null;
+
+                // Bind elements
+                $('#constructClientButton').click(function() {
+                    var key = $('#key').val();
+                    var secret = $('#secret').val();
+
+                    if(!key || !secret) {
+                        return;
+                    }
+
+                    // Construct client
+                    client = window.client = new lastfm.Client(key, secret);
+                    console.log('client:', window.client);
+
+                    // Update UI
+                    $('#generateTokenButton').removeAttr('disabled');
+                });
+
+                $('#generateTokenButton').click(function() {
+                    // Generate authorization token
+                    client.auth.getToken().then(function(token) {
+                        currentToken = token;
+
+                        // Update UI
+                        $('#currentToken').text(token);
+                        $('#authorizeButton').removeAttr('disabled');
+                    });
+                });
+
+                $('#authorizeButton').click(function() {
+                    // Open authorization page
+                    window.open(client.auth.getAuthorizeUrl({
+                        token: currentToken
+                    }), '_blank');
+
+                    // Update UI
+                    $('#authorizeButton').attr('disabled', '');
+                    $('#getSessionButton').removeAttr('disabled');
+                });
+
+                $('#getSessionButton').click(function() {
+                    client.auth.getSession(currentToken).then(function(session) {
+                        client.session = session;
+
+                        // Update UI
+                        $('#currentSession').text(JSON.stringify(session));
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
