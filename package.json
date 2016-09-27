@@ -1,0 +1,50 @@
+{
+  "name": "@fuzeman/lastfm",
+  "version": "0.0.0",
+  "description": "Javascript API wrapper for Last.fm",
+  "homepage": "https://github.com/fuzeman/lastfm.js",
+  "license": "MIT",
+  "main": "lib/index.js",
+
+  "author": "Dean Gardiner",
+
+  "bugs": {
+    "url": "https://github.com/fuzeman/lastfm.js/issues"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fuzeman/lastfm.js.git"
+  },
+
+  "dependencies": {
+    "crypto-js": "^3.1.6",
+    "lodash-amd": "^4.16.2",
+    "querystring": "^0.2.0",
+    "whatwg-fetch": "^1.0.0"
+  },
+
+  "devDependencies": {
+    "babel": "6.3.13",
+    "babel-core": "6.1.18",
+    "babel-eslint": "5.0.0",
+    "babel-loader": "6.1.0",
+    "babel-plugin-add-module-exports": "0.1.2",
+    "babel-preset-es2015": "6.3.13",
+    "del": "^2.2.2",
+    "eslint": "1.7.2",
+    "eslint-loader": "1.1.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-flatten": "^0.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "merge": "^1.2.0",
+    "webpack": "1.12.9",
+    "yargs": "3.32.0"
+  },
+
+  "scripts": {
+    "build": "gulp build"
+  }
+}

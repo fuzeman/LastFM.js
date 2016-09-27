@@ -1,0 +1,40 @@
+{
+  "name": "lastfm.js",
+  "version": "0.0.0",
+  "description": "Javascript API wrapper for Last.fm",
+  "homepage": "https://github.com/fuzeman/lastfm.js",
+  "license": "MIT",
+  "main": "dist/bower/lastfm.js",
+  "moduleType": "amd",
+
+  "authors": [
+    "Dean Gardiner <me@dgardiner.net>"
+  ],
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fuzeman/lastfm.js.git"
+  },
+
+  "dependencies": {
+    "crypto-js": "^3.1.6",
+    "fetch": "^1.0.0",
+    "lodash-amd": "^3.10.2",
+    "querystring": "^3.46.1"
+  },
+
+  "devDependencies": {
+    "jquery": "^3.1.1",
+    "requirejs": "~2.1.10"
+  },
+
+  "ignore": [
+    "demo",
+    "src",
+    "test",
+    ".travis.yml",
+    "gulpfile.js",
+    "karma.conf.js",
+    "package.json"
+  ]
+}
