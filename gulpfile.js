@@ -4,6 +4,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var merge = require('merge');
+var replace = require('gulp-replace');
 var webpack = require('webpack');
 
 
@@ -44,17 +45,13 @@ gulp.task('clean:lib', () => {
 
 gulp.task('build:amd', [
     'clean:dist:amd',
-    'webpack:amd'
+    'webpack:amd',
+    'sourcemap:copy:amd'
 ], function() {
     return gulp
-        .src([
-            __dirname + '/build/amd/**/*.js',
-            __dirname + '/build/amd/**/*.js.map'
-        ])
+        .src(__dirname + '/build/amd/**/*.js')
         .pipe(flatten())
-        .pipe(gulp.dest(
-            __dirname + '/dist/amd'
-        ));
+        .pipe(gulp.dest(__dirname + '/dist/amd'));
 });
 
 gulp.task('webpack:amd', [
@@ -76,6 +73,14 @@ gulp.task('webpack:amd:minified', [
     });
 });
 
+gulp.task('sourcemap:copy:amd', ['webpack:amd'], () => {
+    return gulp.src('build/amd/**/*.map')
+        .pipe(flatten())
+        .pipe(replace(__dirname + '\\', ''))
+        .pipe(replace(__dirname.replace(/\\/g, '/') + '/', ''))
+        .pipe(gulp.dest('dist/amd/'));
+});
+
 gulp.task('clean:build:amd:normal', () => {
     return del([__dirname + '/build/amd/normal']);
 });
@@ -94,17 +99,12 @@ gulp.task('clean:dist:amd', () => {
 
 gulp.task('build:bower', [
     'clean:dist:bower',
-    'webpack:bower'
+    'webpack:bower',
+    'sourcemap:copy:bower'
 ], function() {
-    return gulp
-        .src([
-            __dirname + '/build/bower/**/*.js',
-            __dirname + '/build/bower/**/*.js.map'
-        ])
+    return gulp.src(__dirname + '/build/bower/**/*.js')
         .pipe(flatten())
-        .pipe(gulp.dest(
-            __dirname + '/dist/bower'
-        ));
+        .pipe(gulp.dest(__dirname + '/dist/bower'));
 });
 
 gulp.task('webpack:bower', [
@@ -126,6 +126,14 @@ gulp.task('webpack:bower:minified', [
     });
 });
 
+gulp.task('sourcemap:copy:bower', ['webpack:bower'], () => {
+    return gulp.src('build/bower/**/*.map')
+        .pipe(flatten())
+        .pipe(replace(__dirname + '\\', ''))
+        .pipe(replace(__dirname.replace(/\\/g, '/') + '/', ''))
+        .pipe(gulp.dest('dist/bower/'));
+});
+
 gulp.task('clean:build:bower:normal', () => {
     return del([__dirname + '/build/bower/normal']);
 });
@@ -144,17 +152,12 @@ gulp.task('clean:dist:bower', () => {
 
 gulp.task('build:browser', [
     'clean:dist:browser',
-    'webpack:browser'
+    'webpack:browser',
+    'sourcemap:copy:browser'
 ], function() {
-    return gulp
-        .src([
-            __dirname + '/build/browser/**/*.js',
-            __dirname + '/build/browser/**/*.js.map'
-        ])
+    return gulp.src(__dirname + '/build/browser/**/*.js')
         .pipe(flatten())
-        .pipe(gulp.dest(
-            __dirname + '/dist/browser'
-        ));
+        .pipe(gulp.dest(__dirname + '/dist/browser'));
 });
 
 gulp.task('webpack:browser', [
@@ -174,6 +177,14 @@ gulp.task('webpack:browser:minified', [
     webpackBuild(require('./webpack.config.browser'), done, {
         minify: true
     });
+});
+
+gulp.task('sourcemap:copy:browser', ['webpack:browser'], () => {
+    return gulp.src('build/browser/**/*.map')
+        .pipe(flatten())
+        .pipe(replace(__dirname + '\\', ''))
+        .pipe(replace(__dirname.replace(/\\/g, '/') + '/', ''))
+        .pipe(gulp.dest('dist/browser/'));
 });
 
 gulp.task('clean:build:browser:normal', () => {

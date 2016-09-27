@@ -5,25 +5,20 @@
   "homepage": "https://github.com/fuzeman/lastfm.js",
   "license": "MIT",
   "main": "lib/index.js",
-
   "author": "Dean Gardiner",
-
   "bugs": {
     "url": "https://github.com/fuzeman/lastfm.js/issues"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/fuzeman/lastfm.js.git"
   },
-
   "dependencies": {
     "crypto-js": "^3.1.6",
     "lodash-amd": "^4.16.2",
     "querystring": "^0.2.0",
     "whatwg-fetch": "^1.0.0"
   },
-
   "devDependencies": {
     "babel": "6.3.13",
     "babel-core": "6.1.18",
@@ -37,13 +32,13 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-flatten": "^0.3.1",
+    "gulp-replace": "^0.5.4",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
     "merge": "^1.2.0",
     "webpack": "1.12.9",
     "yargs": "3.32.0"
   },
-
   "scripts": {
     "build": "gulp build"
   }

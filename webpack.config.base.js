@@ -13,7 +13,10 @@ module.exports = {
         filename: 'lastfm.js',
 
         library: 'lastfm',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+
+        devtoolModuleFilenameTemplate: '[resource-path]',
+        devtoolFallbackModuleFilenameTemplate: '[resource-path]?[hash]'
     },
 
     module: {
@@ -28,7 +31,7 @@ module.exports = {
             },
             {
                 test: /(\.jsx|\.js)$/,
-                loader: "eslint-loader",
+                loader: 'eslint-loader',
                 exclude: /node_modules/
             }
         ]
