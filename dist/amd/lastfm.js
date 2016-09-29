@@ -646,23 +646,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }, {
 	        key: 'updateNowPlaying',
-	        value: function updateNowPlaying(track, artist, params) {
-	            if (!(0, _helpers.isDefined)(track)) {
-	                throw new Error('Invalid value provided for the "track" parameter');
+	        value: function updateNowPlaying(item) {
+	            if (!(0, _helpers.isDefined)(item)) {
+	                throw new Error('Invalid value provided for the "item" parameter');
 	            }
 	
-	            if (!(0, _helpers.isDefined)(artist)) {
-	                throw new Error('Invalid value provided for the "artist" parameter');
+	            if (!(0, _helpers.isDefined)(item.track)) {
+	                throw new Error('Invalid value provided for the "track" property in the "item" object');
 	            }
 	
-	            // Build parameters
-	            params = (0, _helpers.isDefined)(params) ? params : {};
-	            params.track = track;
-	            params.artist = artist;
+	            if (!(0, _helpers.isDefined)(item.artist)) {
+	                throw new Error('Invalid value provided for the "artist" property in the "item" object');
+	            }
 	
 	            // Send request
 	            return this.http.post('track.updateNowPlaying', {
-	                params: params,
+	                params: item,
 	
 	                authenticated: true
 	            }).then(function (body) {

@@ -1,6 +1,6 @@
 {
   "name": "@fuzeman/lastfm",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Javascript API wrapper for Last.fm",
   "homepage": "https://github.com/fuzeman/lastfm.js",
   "license": "MIT",
