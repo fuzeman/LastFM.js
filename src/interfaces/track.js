@@ -56,23 +56,22 @@ export default class TrackInterface extends Interface {
         });
     }
 
-    updateNowPlaying(track, artist, params) {
-        if(!isDefined(track)) {
-            throw new Error('Invalid value provided for the "track" parameter');
+    updateNowPlaying(item) {
+        if(!isDefined(item)) {
+            throw new Error('Invalid value provided for the "item" parameter');
         }
 
-        if(!isDefined(artist)) {
-            throw new Error('Invalid value provided for the "artist" parameter');
+        if(!isDefined(item.track)) {
+            throw new Error('Invalid value provided for the "track" property in the "item" object');
         }
 
-        // Build parameters
-        params = isDefined(params) ? params : {};
-        params.track = track;
-        params.artist = artist;
+        if(!isDefined(item.artist)) {
+            throw new Error('Invalid value provided for the "artist" property in the "item" object');
+        }
 
         // Send request
         return this.http.post('track.updateNowPlaying', {
-            params: params,
+            params: item,
 
             authenticated: true
         }).then(function(body) {
