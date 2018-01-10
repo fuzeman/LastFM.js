@@ -20,30 +20,46 @@ module.exports = {
     },
 
     module: {
-        loaders: [
+        rules: [
             {
-                test: /(\.jsx|\.js)$/,
-                loader: 'babel',
+                test: /\.js$/,
                 include: [
-                    path.resolve(__dirname, 'node_modules/lodash-es'),
                     path.resolve(__dirname, 'src')
+                ],
+
+                enforce: 'pre',
+                use: [
+                    {
+                        loader: 'eslint-loader'
+                    }
                 ]
             },
             {
-                test: /(\.jsx|\.js)$/,
-                loader: 'eslint-loader',
-                exclude: /node_modules/
+                test: /\.js$/,
+                include: [
+                    path.resolve(__dirname, 'src')
+                ],
+
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: [
+                                'add-module-exports'
+                            ],
+                            presets: [
+                                '@babel/env'
+                            ]
+                        }
+                    }
+                ]
             }
         ]
     },
 
     resolve: {
-        root: path.resolve('./src'),
-        extensions: ['', '.js'],
-
-        alias: {}
-    },
-
-    externals: [],
-    plugins: []
+        modules: [
+            path.resolve('./node_modules')
+        ]
+    }
 };

@@ -207,13 +207,16 @@ function webpackBuild(config, callback, options) {
     options = typeof options !== 'undefined' && options !== null ? options : {};
 
     // Clone configuration
-    config = merge(true, config);
+    config = merge(true, {
+        plugins: []
+    }, config);
 
     // Process options
     if(options.minify) {
         // Enable uglify plugin
         config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-            minimize: true
+            minimize: true,
+            sourceMap: true
         }));
 
         // Update destination directory
