@@ -1,7 +1,8 @@
-import {isDefined} from '../core/helpers';
-import Interface from './base';
+import QueryString from 'querystring';
 
-import querystring from 'querystring';
+import Interface from './base';
+import {isDefined} from '../core/helpers';
+
 
 export default class AuthInterface extends Interface {
     getAuthorizeUrl(options) {
@@ -21,7 +22,7 @@ export default class AuthInterface extends Interface {
         }
 
         // Build URL
-        return 'https://www.last.fm/api/auth/?' + querystring.encode(params);
+        return 'https://www.last.fm/api/auth/?' + QueryString.encode(params);
     }
 
     getMobileSession(username, password) {

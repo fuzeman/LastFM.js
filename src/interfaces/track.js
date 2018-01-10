@@ -1,5 +1,6 @@
-import {isDefined} from '../core/helpers';
 import Interface from './base';
+import {isDefined} from '../core/helpers';
+
 
 export default class TrackInterface extends Interface {
     scrobble(items) {

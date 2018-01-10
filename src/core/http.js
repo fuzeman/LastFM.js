@@ -1,9 +1,10 @@
+import Hex from 'crypto-js/enc-hex';
+import Md5 from 'crypto-js/md5';
+import Merge from 'lodash-amd/merge';
+import QueryString from 'querystring';
+
 import {isDefined} from './helpers';
 
-import hex from 'crypto-js/enc-hex';
-import md5 from 'crypto-js/md5';
-import merge from 'lodash-amd/merge';
-import querystring from 'querystring';
 
 export default class HttpClient {
     constructor(client, baseUrl) {
@@ -12,7 +13,7 @@ export default class HttpClient {
     }
 
     get(method, options) {
-        options = merge({
+        options = Merge({
             params: {},
 
             authenticated: false,
@@ -44,7 +45,7 @@ export default class HttpClient {
 
         // Send request
         return fetch(
-            this._baseUrl + '?' + querystring.encode(options.params)
+            this._baseUrl + '?' + QueryString.encode(options.params)
         ).then(function(response) {
             // TODO check status code
             return response.json();
@@ -52,7 +53,7 @@ export default class HttpClient {
     }
 
     post(method, options) {
-        options = merge({
+        options = Merge({
             params: {},
 
             authenticated: false,
@@ -85,7 +86,7 @@ export default class HttpClient {
         // Send request
         return fetch(this._baseUrl, {
             method: 'POST',
-            body: querystring.encode(options.params)
+            body: QueryString.encode(options.params)
         }).then(function(response) {
             // TODO check status code
             return response.json();
@@ -118,6 +119,6 @@ export default class HttpClient {
         signature += this._client.secret;
 
         // Generate hash
-        return md5(signature).toString(hex);
+        return Md5(signature).toString(Hex);
     }
 }

@@ -1,6 +1,7 @@
-import {isDefined} from './core/helpers';
 import HttpClient from './core/http';
 import Interfaces from './interfaces';
+import {isDefined} from './core/helpers';
+
 
 export class Client {
     constructor(key, secret, options) {
