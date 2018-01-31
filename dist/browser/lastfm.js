@@ -2607,6 +2607,25 @@ function isnan (val) {
 	 * CryptoJS core components.
 	 */
 	var CryptoJS = CryptoJS || (function (Math, undefined) {
+	    /*
+	     * Local polyfil of Object.create
+	     */
+	    var create = Object.create || (function () {
+	        function F() {};
+
+	        return function (obj) {
+	            var subtype;
+
+	            F.prototype = obj;
+
+	            subtype = new F();
+
+	            F.prototype = null;
+
+	            return subtype;
+	        };
+	    }())
+
 	    /**
 	     * CryptoJS namespace.
 	     */
@@ -2621,7 +2640,7 @@ function isnan (val) {
 	     * Base object for prototypal inheritance.
 	     */
 	    var Base = C_lib.Base = (function () {
-	        function F() {}
+
 
 	        return {
 	            /**
@@ -2644,8 +2663,7 @@ function isnan (val) {
 	             */
 	            extend: function (overrides) {
 	                // Spawn
-	                F.prototype = this;
-	                var subtype = new F();
+	                var subtype = create(this);
 
 	                // Augment
 	                if (overrides) {
@@ -2653,7 +2671,7 @@ function isnan (val) {
 	                }
 
 	                // Create default initializer
-	                if (!subtype.hasOwnProperty('init')) {
+	                if (!subtype.hasOwnProperty('init') || this.init === subtype.init) {
 	                    subtype.init = function () {
 	                        subtype.$super.init.apply(this, arguments);
 	                    };
