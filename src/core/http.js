@@ -3,6 +3,7 @@ import Md5 from 'crypto-js/md5';
 import Merge from 'lodash-amd/merge';
 import QueryString from 'querystring';
 
+import {ApiError, NetworkError} from './errors';
 import {isDefined} from './helpers';
 
 
@@ -47,8 +48,19 @@ export default class HttpClient {
         return fetch(
             this._baseUrl + '?' + QueryString.encode(options.params)
         ).then(function(response) {
-            // TODO check status code
-            return response.json();
+            return response.json().then((data) => {
+                if(!response.ok) {
+                    throw new ApiError(response, data);
+                }
+
+                return data;
+            }).catch((err) => {
+                if(!response.ok) {
+                    throw new NetworkError(response);
+                }
+
+                return Promise.reject(err);
+            });
         });
     }
 
@@ -88,8 +100,19 @@ export default class HttpClient {
             method: 'POST',
             body: QueryString.encode(options.params)
         }).then(function(response) {
-            // TODO check status code
-            return response.json();
+            return response.json().then((data) => {
+                if(!response.ok) {
+                    throw new ApiError(response, data);
+                }
+
+                return data;
+            }).catch((err) => {
+                if(!response.ok) {
+                    throw new NetworkError(response);
+                }
+
+                return Promise.reject(err);
+            });
         });
     }
 

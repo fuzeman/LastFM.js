@@ -3,6 +3,8 @@ import Interfaces from './interfaces';
 import {isDefined} from './core/helpers';
 
 
+export {ApiError, NetworkError} from './core/errors';
+
 export class Client {
     constructor(key, secret, options) {
         options = isDefined(options) ? options : {};
