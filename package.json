@@ -1,6 +1,6 @@
 {
   "name": "@fuzeman/lastfm",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Javascript API wrapper for Last.fm",
   "homepage": "https://github.com/fuzeman/lastfm.js",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "crypto-js": "^3.3.0",
     "lodash-amd": "^4.17.15",
     "querystring": "^0.2.0",
-    "whatwg-fetch": "^1.1.1"
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
