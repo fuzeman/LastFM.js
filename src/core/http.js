@@ -100,18 +100,18 @@ export default class HttpClient {
             method: 'POST',
             body: QueryString.encode(options.params)
         }).then(function(response) {
-            return response.json().then((data) => {
-                if(!response.ok) {
-                    throw new ApiError(response, data);
-                }
-
-                return data;
-            }).catch((err) => {
+            return response.json().catch((err) => {
                 if(!response.ok) {
                     throw new NetworkError(response);
                 }
 
                 return Promise.reject(err);
+            }).then((data) => {
+                if(!response.ok) {
+                    throw new ApiError(response, data);
+                }
+
+                return data;
             });
         });
     }
