@@ -398,18 +398,18 @@ var HttpClient = /*#__PURE__*/function () {
 
 
       return fetch(this._baseUrl + '?' + _querystring.default.encode(options.params)).then(function (response) {
-        return response.json().then(function (data) {
-          if (!response.ok) {
-            throw new _errors.ApiError(response, data);
-          }
-
-          return data;
-        }).catch(function (err) {
+        return response.json().catch(function (err) {
           if (!response.ok) {
             throw new _errors.NetworkError(response);
           }
 
           return Promise.reject(err);
+        }).then(function (data) {
+          if (!response.ok) {
+            throw new _errors.ApiError(response, data);
+          }
+
+          return data;
         });
       });
     }
